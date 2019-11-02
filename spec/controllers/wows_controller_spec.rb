@@ -20,7 +20,17 @@ RSpec.describe WowsController, type: :controller do
     it "should successfully create a new wow in our database" do
       post :create, params: { wow: { comment: 'Look at This!' } }
       expect(response).to redirect_to root_path
+
+      wow = Wow.last
+      expect(wow.comment).to eq("Look at This!")
     end
+
+    it "should properly deal with validation errors" do
+      post :create, params: { wow: { comment: '' } }
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(Wow.count).to eq 0
+    end
+
   end
   
 end
