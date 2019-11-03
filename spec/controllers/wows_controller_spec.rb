@@ -1,6 +1,47 @@
 require 'rails_helper'
 
 RSpec.describe WowsController, type: :controller do
+  describe "wows#update action" do
+    it "should allow users to successfully update wows" do
+      wow = FactoryBot.create(:wow, comment: "Initial Value")
+      patch :update, params: { id: wow.id, wow: { comment: 'Changed' } }
+      expect(response).to redirect_to root_path
+      wow.reload
+      expect(wow.comment).to eq "Changed"
+    end
+
+    it "should have http 404 error if the wow cannot be found" do
+      patch :update, params: { id: "YOLOSWAG", wow: { comment: 'Changed' } }
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "should render the edit form with an http status of unprocessable_entity" do
+      wow = FactoryBot.create(:wow, comment: "Initial Value")
+      patch :update, params: { id: wow.id, wow: { comment: '' } }
+      expect(response).to have_http_status(:unprocessable_entity)
+      wow.reload
+      expect(wow.comment).to eq "Initial Value"
+    end
+  end
+  
+
+
+
+  describe "wows#edit action" do
+    it "should successfully show the edit form if the wow is found" do
+      wow = FactoryBot.create(:wow)
+      get :edit, params: { id: wow.id }
+      expect(response).to have_http_status(:success)
+    end
+
+    it "should return a 404 error message if the wow is not found" do
+      get :edit, params: { id: 'SWAG' }
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
+
+
   describe "wows#show action" do
     it "should successfully show the page if the wow is found" do
       wow = FactoryBot.create(:wow)
