@@ -1,9 +1,10 @@
 class WowsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def destroy
     @wow = Wow.find_by_id(params[:id])
     return render_not_found if @wow.blank?
+    return render_not_found(:forbidden) if @wow.user != current_user
     @wow.destroy
     redirect_to root_path
   end
@@ -12,9 +13,8 @@ class WowsController < ApplicationController
   def update
     @wow = Wow.find_by_id(params[:id])
     return render_not_found if @wow.blank?
-
+    return render_not_found(:forbidden) if @wow.user != current_user
     @wow.update_attributes(wow_params)
-
     if @wow.valid?
     redirect_to root_path
     else
@@ -37,6 +37,7 @@ class WowsController < ApplicationController
   def edit
     @wow = Wow.find_by_id(params[:id])
     return render_not_found if @wow.blank?
+    return render_not_found(:forbidden) if @wow.user != current_user
   end
 
   def create
@@ -56,6 +57,10 @@ class WowsController < ApplicationController
 
   def render_not_found
     render plain: 'Not Found :(', status: :not_found
+  end
+
+  def render_not_found(status=:not_found)
+    render plain: "#{status.to_s.titleize} :(", status: status
   end
 
 end
