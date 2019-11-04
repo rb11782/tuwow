@@ -1,2 +1,12 @@
 
-<h1>Wows!</h1>
+<div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+  <% @wows.each do |wow| %>
+  <div class="card">
+    <div class="handle"><%= gram.user.email %></div>
+    <%= image_tag wow.picture.to_s, class: 'img-fluid' %>
+    <p>
+    <%= wow.comment %>
+    </p>
+  </div>
+  <% end %>
+</div>

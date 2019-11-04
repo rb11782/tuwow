@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_02_223250) do
+ActiveRecord::Schema.define(version: 2019_11_04_022123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "locations", force: :cascade do |t|
+    t.text "comment"
+    t.integer "user_id"
+    t.integer "wow_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_locations_on_user_id"
+    t.index ["wow_id"], name: "index_locations_on_wow_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -32,6 +42,7 @@ ActiveRecord::Schema.define(version: 2019_11_02_223250) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "picture"
     t.index ["user_id"], name: "index_wows_on_user_id"
   end
 

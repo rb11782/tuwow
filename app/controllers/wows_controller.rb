@@ -27,6 +27,7 @@ class WowsController < ApplicationController
   end
 
   def index
+    @wows = Wow.all
   end
 
   def show
@@ -52,7 +53,7 @@ class WowsController < ApplicationController
   private
 
   def wow_params
-    params.require(:wow).permit(:comment)
+    params.require(:wow).permit(:comment, :picture)
   end
 
   def render_not_found
