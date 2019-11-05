@@ -17,7 +17,7 @@ FactoryBot.define do
   end
 
   factory :wow do
-    comment { 'Look at This!' }
+    comment { 'Hello' }
     picture { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'picture.png').to_s, 'image/png') }
     
     association :user

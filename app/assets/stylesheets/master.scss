@@ -34,7 +34,7 @@ body {
 
 .handle {
   margin: 10px;
-  color: #125688;
+  color: #C0392B;
   font-weight: bold;
   font-size: 18px;
 }
@@ -48,7 +48,7 @@ body {
   padding: 0;
 }
 
-.card p, .card .message {
+.card p, .card .comment {
   font-size: 18px;
   margin: 20px;
 }
@@ -61,7 +61,7 @@ label {
 }
 
 .my-btn {
-  background-color: #125688;
+  background-color: #C0392B;
   width: 100%;
   border: none;
   font-size: 24px;
@@ -84,20 +84,20 @@ input {
   line-height: 44px;
 }
 
-.gram-actions a {
+.wow-actions a {
   font-weight: bold;
   font-size: 16px;
   margin-right: 20px;
   margin-left: auto;
 }
 
-.comment {
+.location {
   font-size: 16px;
   margin-top: 5px;
 }
 
-.comment_handle {
-  color: #125688;
+.location_handle {
+  color: #C0392B;
   font-weight: bold;
   font-size: 18px;
 }

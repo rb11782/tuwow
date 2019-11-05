@@ -2,11 +2,35 @@
 <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
   <% @wows.each do |wow| %>
   <div class="card">
-    <div class="handle"><%= gram.user.email %></div>
+    <div class="handle"><%= wow.user.email %></div>
     <%= image_tag wow.picture.to_s, class: 'img-fluid' %>
     <p>
     <%= wow.comment %>
     </p>
+
+    <div class="wow-actions float-right">
+      <% if current_user && current_user == wow.user %>
+        <%= link_to 'Edit', edit_wow_path(wow) %>
+        <%= link_to 'Destroy', wow_path(wow), method: :delete, data: {confirm: 'Delete will occur next!'} %>
+      <% end %>
+    </div>
+    <br class="clear-fix" />
+    <div class="locations">
+      <h3>Location</h3>
+      <% wow.locations.each do |location| %>
+          <div class="location">
+            <span class="location_handle">
+              <%= location.comment %>
+            </span>
+          </div>
+        <% end %>
+
+      <h4>Add Your Wow Address!</h4>
+      <%= simple_form_for Location.new, url: wow_locations_path(wow) do |f| %>
+        <%= f.input :comment %>
+        <%= f.submit 'Add Wow Address.', class: 'my-btn' %>
+      <% end %>
+    </div>
   </div>
   <% end %>
 </div>
